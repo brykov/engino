@@ -44,6 +44,11 @@ class Application
     {
         return $this->_config;
     }
+
+    public function run()
+    {
+
+    }
 }
 
 /**
