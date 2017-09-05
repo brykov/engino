@@ -1,31 +1,49 @@
 <?php
-class Application {
-  
-  private $loadPaths;
-  
-  private $config;
-  
-  function __construct() {
-    $this->loadPaths = [
-      __DIR__,
-      __DIR__ . '/../vendor/'
-    ];
-    spl_autoload_register([$this, 'autoload']);
-    
-    $this->container = new Container();
-  }
-  
-  function autoload($class) {
-    foreach($this->loadPaths as $path) {
-      if(file_exists($file = $path . '/' . $class . '.php')) {
-        return includeFile($file);
-      }
+include_once 'compatibility.php';
+
+class Application
+{
+
+    private $_classLoadPaths;
+
+    private $_config;
+
+    private $_errorHandler;
+
+    function __construct()
+    {
+        $this->_classLoadPaths = [
+            __DIR__,
+            __DIR__ . '/../vendor/'
+        ];
+        spl_autoload_register([$this, 'autoload']);
+
+        $this->_errorHandler = new ErrorHandler();
+
+        $this->loadConfig();
     }
-  }
-  
-  function loadConfig() {
-    $this->config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
-  }
+
+    function autoload($class)
+    {
+        foreach ($this->_classLoadPaths as $path) {
+            if (file_exists($file = $path . '/' . $class . '.php')) {
+                return includeFile($file);
+            }
+        }
+    }
+
+    function loadConfig()
+    {
+        $this->_config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
 }
 
 /**

@@ -1,4 +1,9 @@
 ---
 
-- test1
-- test2
+config:
+  database:
+    host: localhost
+    user: postgres
+    password: ''
+
+
