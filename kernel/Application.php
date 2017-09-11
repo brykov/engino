@@ -1,10 +1,6 @@
 <?php
-include_once 'compatibility.php';
-
 class Application
 {
-
-    private $_classLoadPaths;
 
     private $_config;
 
@@ -12,24 +8,7 @@ class Application
 
     function __construct()
     {
-        $this->_classLoadPaths = [
-            __DIR__,
-            __DIR__ . '/../vendor/'
-        ];
-        spl_autoload_register([$this, 'autoload']);
-
-        $this->_errorHandler = new ErrorHandler();
-
         $this->loadConfig();
-    }
-
-    function autoload($class)
-    {
-        foreach ($this->_classLoadPaths as $path) {
-            if (file_exists($file = $path . '/' . $class . '.php')) {
-                return includeFile($file);
-            }
-        }
     }
 
     function loadConfig()
@@ -51,15 +30,4 @@ class Application
     }
 }
 
-/**
- * Scope isolated include.
- *
- * Prevents access to $this/self from included files.
- */
-function includeFile($file)
-{
-    return include $file;
-}
 
-
-return new Application();
