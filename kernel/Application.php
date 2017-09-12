@@ -1,19 +1,23 @@
 <?php
+/**
+ *
+ */
+
+Use \GuzzleHttp\Psr7\ServerRequest;
+Use \Psr\Http\Message\ServerRequestInterface;
+Use \GuzzleHttp\Psr7\Response;
+
 class Application
 {
 
-    private $_config;
+    private $config;
 
-    private $_errorHandler;
+    private $request;
 
-    function __construct()
+    public function __construct()
     {
-        $this->loadConfig();
-    }
-
-    function loadConfig()
-    {
-        $this->_config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
+        $this->request = ServerRequest::fromGlobals();
+        $this->config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
     }
 
     /**
@@ -21,12 +25,26 @@ class Application
      */
     public function getConfig()
     {
-        return $this->_config;
+        return $this->config;
     }
+
+    /**
+     * @return ServerRequestInterface
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+
 
     public function run()
     {
-
+        return new Response(
+            200,
+            ['Content-Type' => 'text/plain'],
+            'Hello World'
+        );
     }
 }
 
