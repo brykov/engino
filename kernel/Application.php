@@ -3,25 +3,39 @@
  *
  */
 
-Use \GuzzleHttp\Psr7\ServerRequest;
-Use \Psr\Http\Message\ServerRequestInterface;
-Use \GuzzleHttp\Psr7\Response;
+Use \Symfony\Component\HttpFoundation\Request;
+Use Symfony\Component\HttpFoundation\Response;
 
 class Application
 {
 
+    /**
+     * @var array
+     */
     private $config;
 
+    /**
+     * @var Request
+     */
     private $request;
+
+    /**
+     * @var Response
+     */
+    private $response;
 
     public function __construct()
     {
-        $this->request = ServerRequest::fromGlobals();
         $this->config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
+        date_default_timezone_set($this->config['locale']['timezone']);
+
+        $this->request = Request::createFromGlobals();
+        $this->response = new Response('', 200, ['Content-Type' => 'text/plain']);
+        $this->response->prepare($this->request);
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getConfig()
     {
@@ -29,22 +43,28 @@ class Application
     }
 
     /**
-     * @return ServerRequestInterface
+     * @return Request
      */
     public function getRequest()
     {
         return $this->request;
     }
 
+    /**
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
 
-
+    /**
+     *
+     */
     public function run()
     {
-        return new Response(
-            200,
-            ['Content-Type' => 'text/plain'],
-            'Hello World'
-        );
+        $this->response->setContent('hello world');
+        $this->response->sendHeaders()->sendContent();
     }
 }
 

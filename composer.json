@@ -1,7 +1,7 @@
 {
     "require": {
-        "guzzlehttp/psr7": "^1.4",
         "filp/whoops": "^2.1",
-        "mustangostang/spyc": "^0.6.2"
+        "mustangostang/spyc": "^0.6.2",
+        "symfony/http-foundation": "^3.3"
     }
 }
