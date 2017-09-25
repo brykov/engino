@@ -1,9 +1,12 @@
 ---
 
 database:
-  host: localhost
-  user: postgres
+  driver: pgsql
+  host: '0.0.0.0'
+  username: postgres
   password: ''
+  database: engino
+  charset: utf8
 
 locale:
   timezone: UTC
