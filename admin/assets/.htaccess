@@ -1,0 +1,5 @@
+Options -Indexes
+ForceType none
+AddType application/x-zip .gz
+AddType text/plain .php .php3 .phtml .shtml .cgi .pl
+AddHandler send-as-is asis

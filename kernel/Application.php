@@ -65,8 +65,16 @@ class Application
      */
     public function run()
     {
-        $this->response->setContent('hello world');
-        $this->response->sendHeaders()->sendContent();
+        $path = $_SERVER['PATH_INFO'];
+        if ($path === '/admin' || strpos($path, '/admin/') === 0)
+        {
+            $runner = require __DIR__ . '/../admin/index.php';
+            $admin_path = explode('/admin', $path, 2)[1];
+            $runner->run($this, $admin_path);
+        } else {
+            $this->response->setContent(var_export($_SERVER, true));
+            $this->response->sendHeaders()->sendContent();
+        }
     }
 }
 
