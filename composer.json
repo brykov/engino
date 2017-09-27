@@ -5,6 +5,7 @@
         "mustangostang/spyc": "^0.6.2",
         "symfony/http-foundation": "^3.3",
         "usmanhalalit/pixie": "^2.0",
-        "mthaml/mthaml": "^1.8"
+        "mthaml/mthaml": "^1.8",
+        "kriswallsmith/assetic": "^1.4"
     }
 }

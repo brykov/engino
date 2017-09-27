@@ -21,11 +21,11 @@ class Application
      */
     private $request;
 
-    /**
-     * @var Response
-     */
-    private $response;
-    
+//    /**
+//     * @var Response
+//     */
+//    private $response;
+
     /**
     * @var Executor
     */
@@ -44,8 +44,8 @@ class Application
         ));
 
         $this->request = Request::createFromGlobals();
-        $this->response = new Response('', 200); //, ['Content-Type' => 'text/plain']);
-        $this->response->prepare($this->request);
+//        $this->response = new Response('', 200); //, ['Content-Type' => 'text/plain']);
+//        $this->response->prepare($this->request);
     }
 
     /**
@@ -64,13 +64,13 @@ class Application
         return $this->request;
     }
 
-    /**
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
+//    /**
+//     * @return Response
+//     */
+//    public function getResponse()
+//    {
+//        return $this->response;
+//    }
     
     /**
      * @return Executor
@@ -86,15 +86,21 @@ class Application
     public function run()
     {
         $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
-//        $path = $this->request->getPathInfo();
         if ($path === '/admin' || strpos($path, '/admin/') === 0) {
             $runner = require __DIR__ . '/../admin/index.php';
             $admin_path = explode('/admin', $path, 2)[1];
             $runner->run($this, $admin_path);
         } else {
-            $this->response->setContent('SERVING ' . $path);
-            $this->response->sendHeaders()->sendContent();
+            $this->respond_with('SERVING ' . $path, 200, 'text/plain');
         }
+    }
+
+    public function respond_with($content, $status = 200, $content_type = 'text/html')
+    {
+        $response = new Response('', $status, ['Content-Type' => $content_type]);
+        $response->prepare($this->request);
+        $response->setContent($content);
+        $response->sendHeaders()->sendContent();
     }
 }
 
