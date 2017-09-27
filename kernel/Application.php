@@ -5,6 +5,8 @@
 
 Use \Symfony\Component\HttpFoundation\Request;
 Use Symfony\Component\HttpFoundation\Response;
+Use MtHaml\Environment;
+Use MtHaml\Support\Php\Executor;
 
 class Application
 {
@@ -23,6 +25,11 @@ class Application
      * @var Response
      */
     private $response;
+    
+    /**
+    * @var Executor
+    */
+    private $haml;
 
     public function __construct()
     {
@@ -30,9 +37,14 @@ class Application
         date_default_timezone_set($this->config['locale']['timezone']);
 
         new \Pixie\Connection('pgsql', $this->config['database'], 'DB');
+      
+        $haml_env = new Environment('php');
+        $this->haml = new Executor($haml_env, array(
+            'cache' => __DIR__ . '/../cache',
+        ));
 
         $this->request = Request::createFromGlobals();
-        $this->response = new Response('', 200, ['Content-Type' => 'text/plain']);
+        $this->response = new Response('', 200); //, ['Content-Type' => 'text/plain']);
         $this->response->prepare($this->request);
     }
 
@@ -58,6 +70,14 @@ class Application
     public function getResponse()
     {
         return $this->response;
+    }
+    
+    /**
+     * @return Executor
+     */
+    public function getHaml()
+    {
+        return $this->haml;
     }
 
     /**
