@@ -2,3 +2,4 @@
 vendor/*
 cache/*
 node_modules/*
+public/assets/*

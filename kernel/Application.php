@@ -87,7 +87,7 @@ class Application
     {
         $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
         if ($path === '/admin' || strpos($path, '/admin/') === 0) {
-            $runner = require __DIR__ . '/../admin/index.php';
+            $runner = require __DIR__ . '/../admin/admin.php';
             $admin_path = explode('/admin', $path, 2)[1];
             $runner->run($this, $admin_path);
         } else {

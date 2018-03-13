@@ -12,7 +12,7 @@ class Admin
     /**
      * @var string
      */
-    private $mode;
+    private $action;
 
     /**
      * @var string
@@ -27,33 +27,33 @@ class Admin
     {
         $this->app = $app;
 
-        @list($this->mode, $this->uri) = explode('/', trim($path, '/'), 2);
+        @list($this->action, $this->uri) = explode('/', trim($path, '/'), 2);
 
-        if (!$this->mode) {
-            $this->mode = 'index';
+        if (!$this->action) {
+            $this->action = 'index';
         }
 
-        if (!method_exists($this, $this->mode . '_mode'))
+        if (!method_exists($this, $this->action . '_action'))
         {
-            $this->mode = 'bad_request';
+            $this->action = 'bad_request';
         }
 
-        $this->{$this->mode . '_mode'}();;
+        $this->{$this->action . '_action'}();;
     }
 
-    private function javascripts_mode()
-    {
-        $js = new AssetCollection([
-            new FileAsset(__DIR__ . '/assets/js/application.js')
-        ]);
-        $this->app->respond_with(
-            $js->dump(),
-            200,
-            'application/js'
-        );
-    }
+//    private function javascripts_action()
+//    {
+//        $js = new AssetCollection([
+//            new FileAsset(__DIR__ . '/assets/js/application.js')
+//        ]);
+//        $this->app->respond_with(
+//            $js->dump(),
+//            200,
+//            'application/js'
+//        );
+//    }
 
-    private function index_mode()
+    private function index_action()
     {
         $this->app->respond_with(
             $this->app->getHaml()->render(__DIR__ . '/views/index.html.haml', []),
@@ -62,7 +62,7 @@ class Admin
         );
     }
 
-    private function bad_request_mode()
+    private function bad_request_action()
     {
         $this->app->respond_with(
             'Bad Request',
