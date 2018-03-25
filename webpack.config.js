@@ -2,6 +2,7 @@ const path = require('path');
 const r = path.resolve.bind(this, __dirname);
 
 module.exports = {
+    devtool: "source-map",
     entry: {
         js: r('admin/assets/application.js'),
         css: r('admin/assets/application.css')

@@ -26,7 +26,6 @@ class Admin
     public function run($app, $path)
     {
         $this->app = $app;
-
         @list($this->action, $this->uri) = explode('/', trim($path, '/'), 2);
 
         if (!$this->action) {

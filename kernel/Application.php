@@ -31,6 +31,10 @@ class Application
     */
     private $haml;
 
+    /**
+     * Application constructor.
+     * @throws \MtHaml\Exception
+     */
     public function __construct()
     {
         $this->config = Spyc::YAMLLoad(__DIR__ . '/../config/config.yml');
@@ -95,6 +99,13 @@ class Application
         }
     }
 
+    /**
+     * @param        $content
+     * @param int    $status
+     * @param string $content_type
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     */
     public function respond_with($content, $status = 200, $content_type = 'text/html')
     {
         $response = new Response('', $status, ['Content-Type' => $content_type]);

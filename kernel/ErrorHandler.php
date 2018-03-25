@@ -2,7 +2,7 @@
 
 class ErrorHandler
 {
-    function __construct()
+    public function __construct()
     {
         error_reporting(0);
 
@@ -16,14 +16,14 @@ class ErrorHandler
         register_shutdown_function([$this, 'handleShutdown']);
     }
 
-    function handleException($e)
+    public function handleException($e)
     {
         header('Content-Type: text/plain');
         print_r($e);
         die();
     }
 
-    function handleShutdown()
+    public function handleShutdown()
     {
         if (! is_null($error = error_get_last()) && $this->isFatalError($error['type'])) {
             $this->handleException(new ErrorException(
