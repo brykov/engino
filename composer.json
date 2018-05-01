@@ -1,10 +1,11 @@
 {
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.6.0",
         "filp/whoops": "^2.1",
         "mustangostang/spyc": "^0.6.2",
         "symfony/http-foundation": "^3.3",
         "usmanhalalit/pixie": "^2.0",
-        "mthaml/mthaml": "^1.8"
+        "mthaml/mthaml": "^1.8",
+        "roave/security-advisories": "dev-master"
     }
 }

@@ -17,12 +17,12 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 include: [
-                    r('admin/assets/js')
+                    r('admin/assets')
                 ],
                 exclude: /(node_modules|bower_components)/,
                 loader: "babel-loader",
                 options: {
-                    presets: ['es2015']
+                    presets: ['react']
                 }
             },
             {
