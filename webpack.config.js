@@ -4,7 +4,7 @@ const r = path.resolve.bind(this, __dirname);
 module.exports = {
     devtool: "source-map",
     entry: {
-        js: r('admin/assets/application.js'),
+        js: r('admin/assets/application.jsx'),
         css: r('admin/assets/application.css')
     },
     output: {
@@ -34,6 +34,9 @@ module.exports = {
                 ]
             }
         ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     devServer: {
         contentBase: r('public/assets'),
