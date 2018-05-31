@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import ListContainer from './components/list-container'
+import App from './components/app'
 import { Provider } from 'react-redux'
+import uuidv4 from './lib/uuid'
 
 import { createStore } from "redux"
 
 const initialState = {
     items: [
-        {title: 'item #1', modifiedAt: Date.now()},
-        {title: 'item #2', modifiedAt: Date.now()}
+        {title: 'item #1', modifiedAt: Date.now(), uuid: uuidv4()},
+        {title: 'item #2', modifiedAt: Date.now(), uuid: uuidv4()}
     ]
 };
 
-const adminApp = (state, action) => {
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
+const adminApp = (state = initialState, action) => {
 
-    // For now, don't handle any actions
-    // and just return the state given to us.
     return state
 };
 
@@ -29,8 +25,7 @@ const store = createStore(
 
 render(
     <Provider store={store}>
-        <h1>Hello, world</h1>
-        <ListContainer/>
+        <App/>
     </Provider>,
     document.getElementById('root')
 );
