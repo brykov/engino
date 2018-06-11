@@ -34,7 +34,7 @@ class Admin
 
         if (!method_exists($this, $this->action . '_action'))
         {
-            $this->action = 'bad_request';
+            $this->action = 'index';
         }
 
         $this->{$this->action . '_action'}();;

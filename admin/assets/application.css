@@ -1,0 +1,18 @@
+.root {
+  padding: 2em;
+}
+
+.menu {
+  list-style: none none outside;
+  padding: 0;
+}
+
+.menu li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.menu_item_active {
+  font-weight: bold;
+  text-decoration: none;
+}

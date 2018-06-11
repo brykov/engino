@@ -5,7 +5,6 @@ module.exports = {
     devtool: "source-map",
     entry: {
         js: r('admin/assets/application.jsx'),
-        css: r('admin/assets/application.css')
     },
     output: {
         path: r('public/assets'),
@@ -29,7 +28,16 @@ module.exports = {
                 rules: [
                     {
                         test: /\.css$/,
-                        use: [ 'style-loader', 'css-loader' ]
+                        use: [
+                          'style-loader',
+                          {
+                            loader: 'css-loader',
+                            options: {
+                              importLoaders: 1,
+                              modules: true,
+                            },
+                          }
+                        ]
                     }
                 ]
             }
